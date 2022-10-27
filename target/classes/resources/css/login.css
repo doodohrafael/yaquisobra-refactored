@@ -1,0 +1,67 @@
+.login { /* Login */
+	border: none ;
+	box-shadow: 0 0 10px 0 rgba(168 0 0) !important; /* Sombra vermelha do quadrado */
+	height: 61ex !important;
+	margin: 0 auto !important;
+	text-align: center !important; /* Alinhar logo */
+	width: 35% !important; /* Tamanho do quadrado */
+	color: white !important;
+	border-bottom: 80px solid #dc3545 !important; /* Borda vermelha inferior */
+	font-size: 140% !important;
+	position: absolute !important; /* Centralizar quadrado */
+	top: 50% !important; /* Centralizar quadrado */
+	left: 50% !important; /* Centralizar quadrado */
+	transform: translate(-50%, -50%) !important;
+	border-radius: 20px !important;
+}
+
+.login .img-avatar-login {
+	width: 60% !important;
+	margin: 12px !important;
+}
+
+.login .button-entrar { /* Botão "Entrar" */
+	width: 90% !important;
+	font-size: 22px !important;
+	position: absolute !important;
+	top: 107% !important;
+	left: 50% !important;
+	-ms-transform: translate(-50%, -50%) !important;
+	transform: translate(-50%, -50%) !important;
+	height: 50px !important;
+	background: transparent !important;
+	border: 1px solid white !important;
+	cursor: pointer !important;
+	border-radius: 3px !important;
+	border-width: unset !important;
+}
+
+.login .button-entrar:hover { /* Botão "Entrar" */
+	background: #212529 !important;
+	border: solid white !important;
+	transition-duration: 0.6s !important;
+}
+
+#div-ipt-cpf { /* Div Input Cpf */
+	margin-bottom: 5px !important;
+}
+
+.ipt-msk-cpf { /* Input Mask Cpf */
+	font-size: 20px !important;
+}
+
+.ipt-msk-senha { /* Password Senha */
+	font-size: 20px !important;
+}
+
+.div-ipt-senha { /* Div Input Senha */
+	margin-top: 10px !important;
+}
+
+body .ui-layout-unit { /* Borda background principal login */
+	border: none;
+}
+
+body .ui-layout-unit { /* Cor background principal login */
+	background-color: #000;
+}

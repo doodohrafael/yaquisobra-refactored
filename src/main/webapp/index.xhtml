@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/templatePadrao.xhtml">
+	<ui:define name="conteudo">
+
+		<h:panelGroup
+			rendered="#{loginMBean.usuarioLogado.funcao == null}">
+			<div class="login">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<h:form>
+								<img src="./imagens/yaquisobra-logo.jpg" alt=""
+									class="img-avatar-login" />
+
+								<div class="grid ui-fluid">
+
+									<div class="ui-inputgroup" id="div-ipt-cpf">
+										<p:inputMask id="cpf" mask="999.999.999-99" placeholder="CPF"
+											value="#{loginMBean.usuarioLogado.cpf}"
+											styleClass="ipt-msk-cpf" />
+										<p:tooltip for="cpf" value="Digite seu cpf" position="right" />
+									</div>
+
+									<div class="ui-inputgroup">
+										<p:password id="senha"
+											value="#{loginMBean.usuarioLogado.senha}" maxlength="8"
+											placeholder="Senha" redisplay="true" toggleMask="true"
+											styleClass="ipt-msk-senha div-ipt-senha" />
+										<p:tooltip for="senha" value="Digite sua senha"
+											position="right" />
+									</div>
+
+								</div>
+
+								<div class="p-grid ui-fluid">
+									<div class="row">
+
+										<div class="p-col-12 p-md-4">
+
+											<div class="size-btn-login">
+												<p:commandButton value="#{Constantes.BOTAO_ENTRAR}"
+													class="btn btn-primary" styleClass="button-entrar"
+													update=":caixaMensagem :menu "
+													action="#{loginMBean.entrar}" />
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:panelGroup>
+
+	</ui:define>
+</ui:composition>
+</html>

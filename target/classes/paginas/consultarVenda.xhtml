@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/templates/templatePadrao.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{vendaMBean.consultarVendas}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="form-vendas" rendered="#{usuarioMBean.usuarioLogado.funcao != 'BALCONISTA'}">
+			<h1 class="titulos">CONSULA DETALHADA DAS VENDAS</h1>
+
+			<p:panelGrid id="pnl-cld" columns="5" styleClass="semBorda pnl-datas">
+
+				<p:outputLabel value="Data Inicial: "
+					styleClass="lbl-bold size-labels" />
+				<p:calendar id="data-inicial" styleClass="btn-ipt-dt" 
+					converterMessage="O Campo Data é inválido."
+					value="#{vendaMBean.dataInicial}" showOn="button" mask="true"
+					pattern="dd/MM/yyyy" />
+
+				<p:outputLabel value="Data Final: "
+					styleClass="lbl-bold size-labels" />
+				<p:calendar id="data-final" styleClass="btn-ipt-dt"
+					converterMessage="O Campo Data é inválido."
+					value="#{vendaMBean.dataFinal}" showOn="button" mask="true"
+					pattern="dd/MM/yyyy" />
+
+				<p:commandButton id="botaoPesquisar" value="Pesquisar"
+					styleClass="btn-search" icon="fas fa-search"
+					action="#{vendaMBean.filtrarPorData}"
+					update=":form-vendas:tabela-vendas" />
+
+			</p:panelGrid>
+			<br />
+			<p:dataTable id="tabela-vendas" reflow="true"
+				emptyMessage="#{Constantes.MSG_REGISTRO_NAO_ENCONTRADO}"
+				value="#{vendaMBean.colecaoVendas}" var="venda" rows="5"
+				paginator="true" sortBy="#{venda.dataHoraCadastro}"> 
+
+				<p:column headerText="Data/Hora" style="width:8%;" 
+					sortBy="#{venda.dataHoraCadastro}" sortOrder="desc" sortPriority="1">
+					<p:outputLabel value="#{venda.dataHoraCadastro}" />
+				</p:column>
+
+				<p:column headerText="Cliente" sortBy="#{venda.cliente.nome}" sortPriority="2">
+					<p:outputLabel value="#{venda.cliente.nome}" />
+				</p:column>
+
+				<p:column headerText="Telefone" style="width:6.5%;">
+					<p:outputLabel value="#{venda.cliente.contato.telefone}" />
+				</p:column>
+
+				<p:column headerText="Logradouro" style="width:7%;">
+					<p:outputLabel value="#{venda.cliente.endereco.logradouro}" />
+				</p:column>
+
+				<p:column headerText="Bairro" style="width:7%;">
+					<p:outputLabel value="#{venda.cliente.endereco.bairro}" />
+				</p:column>
+
+				<p:column headerText="Número" style="width:3%;">
+					<p:outputLabel value="#{venda.cliente.endereco.numero}" />
+				</p:column>
+
+				<p:column headerText="Valor Pago" style="width:4.5%;">
+					<p:outputLabel value="#{venda.valorTotal}">
+						<f:convertNumber pattern="0.00" />
+					</p:outputLabel>
+				</p:column>
+
+				<p:column headerText="Qnt. Itens" style="width:2%;">
+					<h:outputText value="#{venda.quantidadeItensTotal}" />
+				</p:column>
+
+				<p:column headerText="Forma de Pagamento" style="width:9%;">
+					<h:outputText value="#{vendaMBean.formaPagamento.descricao}" />
+				</p:column>
+
+				<p:column headerText="Frete" style="width:2%;">
+					<h:outputText value="#{venda.valorFrete}" />
+				</p:column>
+
+				<p:column headerText="Atendente" style="width:10%;">
+					<h:outputText value="#{vendaMBean.usuarioLogado.nome}" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+
+		<p:dialog closable="true" draggable="true" modal="true"
+			appendTo="@(body)" resizable="false" header="Confirmar Exclusão"
+			widgetVar="dialog-exclusao">
+			<h:form>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+					responsive="true" width="350">
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no ui-button-flat" />
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" />
+				</p:confirmDialog>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+</html>

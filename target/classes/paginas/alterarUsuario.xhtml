@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/templatePadrao.xhtml">
+
+	<ui:define name="conteudo">
+		<center>
+			<h1 class="titulos">TELA ALTERAR FUNCIONÁRIO</h1>
+		</center>
+		<h:form
+			rendered="#{usuarioMBean.usuarioLogado.funcao != 'BALCONISTA'}">
+
+			<br />
+			<p:toolbar>
+				<p:toolbarGroup>
+					<h:outputText styleClass="lbl-bold label-endereco"
+						value="Dados pessoais" />
+					<i class="fas fa-level-down-alt" style=""></i>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" styleClass="semBorda forms">
+				<p:outputLabel for="nome" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_NOME}:" />
+				<p:inputText value="#{usuarioMBean.usuario.nome}" size="150"
+					required="true" id="nome"
+					requiredMessage="O campo nome é obrigatório." />
+
+				<p:outputLabel for="cpf" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_CPF}:" />
+				<p:inputMask mask="999.999.999-99" required="true" id="cpf"
+					value="#{usuarioMBean.usuario.cpf}" size="10" disabled="true"
+					requiredMessage="O campo CPF é obrigatório.">
+				</p:inputMask>
+
+				<p:outputLabel for="senha" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_SENHA}:" />
+				<p:password value="#{usuarioMBean.usuario.senha}" maxlength="8"
+					required="true" id="senha"
+					requiredMessage="O campo senha é obrigatório." size="10">
+				</p:password>
+
+				<p:outputLabel for="confirmarSenha" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_CONFIRMAR_SENHA}:" />
+				<p:password value="#{usuarioMBean.confirmarSenha}" maxlength="8"
+					required="true" id="confirmarSenha" size="10"
+					requiredMessage="O campo Confirmar Senha é obrigatório.">
+				</p:password>
+
+				<p:outputLabel for="funcao" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_FUNCAO}:" />
+				<p:selectOneMenu value="#{usuarioMBean.usuario.funcao}"
+					required="true" id="funcao"
+					requiredMessage="O campo Função é obrigatório.">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItem itemLabel="Administrador" itemValue="ADMINISTRADOR" />
+					<f:selectItem itemLabel="Balconista" itemValue="BALCONISTA" />
+					<f:selectItem itemLabel="Gerente" itemValue="GERENTE" />
+				</p:selectOneMenu>
+
+				<p:outputLabel for="telefone" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_TELEFONE}:" />
+				<p:inputMask mask="(99) 99999-9999" required="true" id="telefone"
+					requiredMessage="O campo Telefone é obrigatório."
+					value="#{usuarioMBean.contato.telefone}" size="11">
+				</p:inputMask>
+			</p:panelGrid>
+
+			<br />
+			<p:toolbar>
+				<p:toolbarGroup>
+					<h:outputText styleClass="lbl-bold label-endereco" value="Endereço" />
+					<i class="fas fa-level-down-alt" style=""></i>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" styleClass="semBorda forms">
+				<p:outputLabel for="logradouro" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_LOGRADOURO}:" />
+				<p:inputText value="#{usuarioMBean.endereco.logradouro}" size="150"
+					requiredMessage="O campo Logradouro é obrigatório." id="logradouro" />
+
+				<p:outputLabel for="numero" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_NUMERO}:" />
+				<p:inputText value="#{usuarioMBean.endereco.numero}" size="10"
+					id="numero" requiredMessage="O campo Número é obrigatório." />
+
+				<p:outputLabel for="bairro" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_BAIRRO}:" />
+				<p:inputText value="#{usuarioMBean.endereco.bairro}" size="50"
+					required="true" id="bairro"
+					requiredMessage="O campo Bairro é obrigatório." />
+
+				<p:outputLabel for="cidade" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_CIDADE}:" />
+				<p:inputText value="#{usuarioMBean.endereco.cidade.nome}" size="50"
+					required="true" id="cidade"
+					requiredMessage="O campo Cidade é obrigatório." />
+
+				<p:outputLabel for="estado" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_ESTADO}:" />
+				<p:inputText value="#{usuarioMBean.endereco.cidade.estado.nome}"
+					maxlength="2" size="1" required="true" id="estado"
+					requiredMessage="O campo Estado é obrigatório." />
+
+				<p:outputLabel for="cep" styleClass="lbl-bold"
+					value="#{Constantes.LABEL_CEP}:" />
+				<p:inputMask mask="99999-999" value="#{usuarioMBean.endereco.cep}"
+					required="true" id="cep" size="15"
+					requiredMessage="O campo CEP é obrigatório." />
+
+				<p:outputLabel styleClass="lbl-bold"
+					value="#{Constantes.LABEL_COMPLEMENTO}:" />
+				<p:inputTextarea value="#{usuarioMBean.endereco.complemento}" />
+			</p:panelGrid>
+
+			<br />
+
+			<p:panelGrid>
+				<p:commandButton value="#{Constantes.BOTAO_VOLTAR}" icon=""
+					styleClass="ui-button-success buttons-forms"
+					style="margin-right: .5rem;"
+					action="/paginas/consultarUsuario.xhtml?faces-redirect=true">
+				</p:commandButton>
+
+				<p:commandButton value="#{Constantes.BOTAO_SALVAR}"
+					icon="fas fa-save" styleClass="ui-button-success buttons-forms"
+					style="margin-right: .5rem;" action="#{usuarioMBean.alterar}"
+					update="@form :caixaMensagem">
+				</p:commandButton>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
